@@ -2,11 +2,14 @@
 // Define canvas for the schuettelbox
 const schuettelbox = document.getElementById("canvas");
 const ctx = schuettelbox.getContext("2d");
-ctx.translate(400,300);
+ctx.translate(400,200);
 
 // Global variables
 var cnt = 0;
-var delta = 5;
+var delta = 2;
+var chosenNumber = +document.getElementById("choseNumber").value;
+var firstNumber = Math.floor(Math.random() * (chosenNumber+1));
+var secondNumber = chosenNumber - firstNumber;
 
 // Define circles
 const coordinatesLeftBox = [
@@ -50,8 +53,8 @@ function drawBox(){
   ctx.stroke();
 
   // Split up circes randomly
-  var firstNumber = Math.floor(Math.random() * 11);
-  var secondNumber = 10 - firstNumber;
+  firstNumber = Math.floor(Math.random() * (chosenNumber+1));
+  secondNumber = chosenNumber - firstNumber;
   // Fill left box
   for (var i = 0; i < firstNumber; i++) {
     x = coordinatesLeftBox[i].x;
@@ -105,11 +108,15 @@ function animateBox(time){
 
 // Define event handler for shake button
 function shakeBox(){
+  // Clear feedback
+  var feedback = document.querySelector("#feedback");
+  feedback.value = "";
+
   // Animate Schuettelbox
   // Get current time and define animation frequency
   let startTime = Date.now();
   let animationFrequency = 40;
-  let animationDuration = 840;
+  let animationDuration = 1640;
   let boxAnimation = setInterval(function(){
     //How much time has passed?
     var timePassed = Date.now() - startTime;
@@ -124,5 +131,40 @@ function shakeBox(){
 
 // Handle clicks on shake button
 drawBox();
-shakeBtn = document.querySelector(".binaryButton");
+shakeBtn = document.querySelector("#shakeButton");
 shakeBtn.addEventListener("click", shakeBox);
+
+// Handle number selction
+function updateNumber(){
+  // Update display field
+  display = document.querySelector("#display");
+  display.value = this.value;
+  // Update result field
+  result = document.querySelector("#result");
+  result.value = this.value;
+  // Update global variable
+  chosenNumber = +document.getElementById("choseNumber").value;
+}
+numberRange = document.querySelector("#choseNumber");
+numberRange.addEventListener("input", updateNumber);
+
+// Check equation
+function checkResult(){
+
+  // Fetch values and check whether the equation is true or false
+  var num1 = +document.getElementById("num1").value;
+  var num2 = +document.getElementById("num2").value;
+    
+  // Display result
+  var feedback = document.querySelector("#feedback");
+  if (num1 == firstNumber && num2 == secondNumber){
+    // The solution is correct
+    feedback.value = "🥳";
+
+  } else{
+    feedback.value = "😬";
+  }
+
+}
+checkBtn = document.querySelector("#checkButton");
+checkBtn.addEventListener("click", checkResult);

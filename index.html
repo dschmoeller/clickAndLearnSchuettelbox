@@ -8,15 +8,32 @@
   </head>
 
   <body>
+
     <h1>Schüttelbox</h1>
+
+    <p>Wähle eine Zahl aus: </p>
+    <form>
+      <input type="range" id="choseNumber" name="choseNumber" value="10" min="1" max="10"> <br>
+      <output id="display" name="display" for="choseNumber">10</output>
+    </form>
+
     <div class="container">
       <div class="content">
-        <canvas id="canvas" width="800" height="600"></canvas>
+        <canvas id="canvas" width="800" height="400"></canvas>
       </div>
       <div class="content">
-        <button class=binaryButton type="button" name="button">👋</button>
+        <button class="emojyButton" type="button" id="shakeButton">👋</button> <br>
+        <button class="textButton" type="button" id="checkButton">Check</button> <br>
+        <output class="feedback" id="feedback" name="feedback"></output>
       </div>
     </div>
+
+    <form>
+      <input type="number" id="num1" value=""> +
+      <input type="number" id="num2" value=""> =
+      <output id="result" name="result">10</output>
+    </form>
+
 
     <footer>
       click & learn
